@@ -27,7 +27,7 @@ www.example.com  CNAME            www.example.herokudns.com
     app: flags.app({required: true}),
     remote: flags.remote(),
     json: flags.boolean({description: 'output in json format', char: 'j'}),
-    ...cli.table.flags({except: 'no-truncate'})
+    ...cli.table.flags({except: ['no-truncate', 'output']}),
   }
 
   async run() {
