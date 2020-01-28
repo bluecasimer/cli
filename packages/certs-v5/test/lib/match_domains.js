@@ -21,7 +21,7 @@ describe('matchDomains', () => {
     const certDomains = ['*.purple.com', '*.foobar.com']
     const appDomains = ['www.foobar.com', 'www.purple.com', 'app.purple.com']
 
-    expect(matchDomains(certDomains, appDomains)).to.deep.eq(['www.foobar.com', 'www.purple.com','app.purple.com'])
+    expect(matchDomains(certDomains, appDomains)).to.deep.eq(['www.foobar.com', 'www.purple.com', 'app.purple.com'])
   })
 
   it('matches app domains with SAN certs', () => {
@@ -32,10 +32,10 @@ describe('matchDomains', () => {
   })
 
   it('matches wildcards at the correct depth', () => {
-    const certDomains = ['*.purple.com'];
-    const appDomains = ['foo.purple.com', 'foo.bar.purple.com'];
+    const certDomains = ['*.purple.com']
+    const appDomains = ['foo.purple.com', 'foo.bar.purple.com']
 
-    expect(matchDomains(certDomains, appDomains)).to.deep.equal(['foo.purple.com']);
+    expect(matchDomains(certDomains, appDomains)).to.deep.equal(['foo.purple.com'])
   })
 
   it('returns a blank array when nothing matches', () => {

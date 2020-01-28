@@ -472,7 +472,7 @@ ${certificateDetails}
 
     nock('https://api.heroku.com')
       .get('/apps/example/domains')
-      .reply(200, [{id: 123, hostname: 'example.com'}])
+      .reply(200, [{ id: 123, hostname: 'example.com' }])
 
     mockDomains(inquirer)
     mockFile(fs, 'pem_file', 'pem content')
@@ -505,7 +505,7 @@ ${certificateDetails}
 
 === Your certificate has been added successfully.  Add a custom domain to your app by running heroku domains:add <yourdomain.com>
 `)
-      })
+    })
   })
 
   describe('stable cnames', function () {
@@ -1299,8 +1299,8 @@ SSL certificate is self signed.
 
   it('# creates an SNI endpoint if SSL addon and passed --type sni', function () {
     nock('https://api.heroku.com')
-        .get('/apps/example/features')
-        .reply(200, [])
+      .get('/apps/example/features')
+      .reply(200, [])
 
     nock('https://api.heroku.com')
       .get('/apps/example/ssl-endpoints')
