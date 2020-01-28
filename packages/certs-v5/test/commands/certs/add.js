@@ -461,7 +461,7 @@ ${certificateDetails}
 
     nock('https://api.heroku.com')
       .get('/apps/example/features')
-      .reply(200, [{name: 'allow-multiple-sni-endpoints', enabled: true}])
+      .reply(200, [{ name: 'allow-multiple-sni-endpoints', enabled: true }])
 
     nock('https://api.heroku.com')
       .get('/apps/example/addons/ssl%3Aendpoint')
