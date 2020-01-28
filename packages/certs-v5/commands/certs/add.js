@@ -204,26 +204,24 @@ function * addDomains (context, heroku, meta, cert) {
 function * configureDomains (context, heroku, meta, cert) {
   let certDomains = cert.ssl_cert.cert_domains
   let apiDomains = yield waitForDomains(context, heroku)
-  let matchedDomains = matchDomains(certDomains, apiDomains)
-  let promptChoices = matchedDomains.map(domain => {
-    return {name: domain.hostname, value: domain}
-  })
+  let appDomains = apiDomains.map(domain => domain.hostname)
+  let matchedDomains = matchDomains(certDomains, appDomains)
 
-  if (promptChoices.length > 0) {
+  if (matchedDomains.length > 0) {
     cli.styledHeader('Almost done! Which of these domains on this application would you like this certificate associated with?')
 
     let selectedDomains = (yield inquirer.prompt([{
       type: 'checkbox',
       name: 'domains',
       message: 'Select domains',
-      choices: promptChoices
+      choices: matchedDomains
     }])).domains
 
     if (selectedDomains.length > 0) {
       selectedDomains.forEach(domain => {
         heroku.request({
           method: 'PATCH',
-          path: `/apps/${context.app}/domains/${domain.id}`,
+          path: `/apps/${context.app}/domains/${domain}`,
           headers: {Accept: 'application/vnd.heroku+json; version=3.allow_multiple_sni_endpoints'},
           body: { sni_endpoint: cert.name }
         })
