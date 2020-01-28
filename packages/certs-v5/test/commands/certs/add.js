@@ -454,7 +454,7 @@ ${certificateDetails}
     /* eslint-enable no-irregular-whitespace */
   })
 
-  it.only('# shows the configure prompt when flagged in', function () {
+  it('# shows the configure prompt when flagged in', function () {
     nock('https://api.heroku.com')
       .get('/apps/example')
       .reply(200, { 'space': null })
