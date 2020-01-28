@@ -454,14 +454,14 @@ ${certificateDetails}
     /* eslint-enable no-irregular-whitespace */
   })
 
-  it('# shows the configure prompt when flagged in', function () {
+  it.only('# shows the configure prompt when flagged in', function () {
     nock('https://api.heroku.com')
       .get('/apps/example')
       .reply(200, { 'space': null })
 
     nock('https://api.heroku.com')
       .get('/apps/example/features')
-      .reply(200, ['allow-multiple-sni-endpoints'])
+      .reply(200, [{name: 'allow-multiple-sni-endpoints', enabled: true}])
 
     nock('https://api.heroku.com')
       .get('/apps/example/addons/ssl%3Aendpoint')
@@ -472,7 +472,7 @@ ${certificateDetails}
 
     nock('https://api.heroku.com')
       .get('/apps/example/domains')
-      .reply(200, [{ id: 123, hostname: 'example.com' }])
+      .reply(200, [{ id: 123, hostname: 'example.org' }])
 
     mockDomains(inquirer)
     mockFile(fs, 'pem_file', 'pem content')
@@ -502,8 +502,7 @@ ${certificateDetails}
         `example now served by tokyo-1050.herokussl.com
 Certificate details:
 ${certificateDetails}
-
-=== Your certificate has been added successfully.  Add a custom domain to your app by running heroku domains:add <yourdomain.com>
+=== Almost done! Which of these domains on this application would you like this certificate associated with?
 `)
     })
   })
